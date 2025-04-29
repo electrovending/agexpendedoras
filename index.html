@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AG Expendedoras - Servicios de Máquinas</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('fondo-maquina-cafe.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Pantalla inicial con QR */
+    .qr-screen {
+      background-color: #000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeOut 1s forwards;
+      animation-delay: 3s;
+    }
+
+    .qr-screen img {
+      width: 350px;
+      max-width: 90vw;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 50px 20px;
+      position: relative;
+      z-index: 1;
+      display: none;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .botones {
+      margin-top: 30px;
+    }
+
+    .boton {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      background-color: #e67e22;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: #d35400;
+    }
+
+    /* Formulario */
+    .formulario-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      margin-top: 40px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .boton {
+        width: 100%;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla inicial -->
+  <div class="qr-screen" id="qrScreen">
+    <img src="qr.gif" alt="Escaneando QR" />
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="overlay" id="mainContent">
+    <h1>AG Expendedoras</h1>
+    <p>Ofrecemos soluciones modernas en máquinas expendedoras de café, snacks y bebidas. Nos especializamos en servicios llave en mano, instalación, mantenimiento y asistencia personalizada.</p>
+
+    <div class="botones">
+      <a href="mailto:agexpendedoras@gmail.com" class="boton">Email</a>
+      <a href="https://wa.me/541157087355" target="_blank" class="boton">WhatsApp</a>
+    </div>
+
+    <!-- Formulario -->
+    <div class="formulario-container">
+      <h2>Solicitá Información</h2>
+      <p>Completá el formulario y nos contactaremos por WhatsApp.</p>
+      <form onsubmit="enviarWhatsApp(); return false;">
+        <input type="text" id="nombre" placeholder="Tu nombre" required />
+        <input type="text" id="empresa" placeholder="Empresa (opcional)" />
+        <textarea id="mensaje" placeholder="Tu mensaje" required></textarea>
+        <button type="submit" class="boton">Enviar a WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script para ocultar QR y mostrar contenido -->
+  <script>
+    setTimeout(() => {
+      document.getElementById('qrScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    }, 3000);
+
+    function enviarWhatsApp() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const empresa = document.getElementById("empresa").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
+      const texto = `Hola, soy ${nombre}${empresa ? ' de ' + empresa : ''}. ${mensaje}`;
+      const url = "https://wa.me/541157087355?text=" + encodeURIComponent(texto);
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
